@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.aprocni.mapper.TestMapper">
+    <insert id="joinChannel" parameterType="com.aprocni.vo.ChannelVO">
+    	insert into t_channel
+    		(channel_id, channel_nm, secret_key, use_yn, cre_date)
+    	values
+    		(#{channelId}, #{channelNm}, #{secretKey}, #{useYn}, now())	 
+    </insert>
+    
+    <select id="selectChannel" resultType="com.aprocni.vo.ChannelVO">
+    	select * from t_channel
+    </select>
+</mapper>

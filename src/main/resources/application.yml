@@ -1,0 +1,75 @@
+
+spring :
+
+  profiles : 
+    active : local
+    
+  datasource: #DB 접속정보 
+    driverClassName: net.sf.log4jdbc.sql.jdbcapi.DriverSpy 
+       
+    hikari: #Hikari 설정 
+      maximum-pool-size: 10 
+      connection-test-query: SELECT 1 
+      data-source-properties: 
+        cachePrepStmts: true 
+        prepStmtCacheSize: 250 
+        prepStmtCacheSqlLimit: 2048 
+        useServerPrepStmts: true
+
+
+mybatis: #Mybatis 설정 
+  configuration:
+    multiple-result-sets-enabled: false
+    map-underscore-to-camel-case: true
+    call-setters-on-nulls: true
+    jdbc-type-for-null: varchar
+    default-fetch-size: 500 
+  mapper-locations: 
+  - classpath:mybatis/mapper/*.xml 
+
+
+      
+devtools: #jsp파일 서버 재시작 없이 바로 적용하기 spring-boot-devtools 
+  livereload: 
+    enabled: true
+  
+ 
+              
+
+--- #local 환경설정
+
+spring :
+  profiles : local
+  
+  datasource :
+    url : jdbc:log4jdbc:postgresql://office.aprocni.com:5432/alarm_service 
+    username : push
+    password : "push!@#"
+    platform : postgres
+  
+server : 
+  port : 8080
+  
+logging :
+  pattern : 
+    console : "[%d{yyyy-MM-dd HH:mm:ss}:%-3relative][%thread] %-5level %M %logger{35} - %msg%n" 
+  level : 
+    org.springframework.web: error
+    java.sql: info
+    jdbc: off
+    jdbc.sqlonly: off
+    jdbc.sqltiming: info
+    jdbc.audit: off
+    jdbc.resultset: off
+    jdbc.resultsettable: info
+    jdbc.connection: error
+  
+  
+  
+--- #real 환경설정   
+
+spring :
+  profiles : real
+  
+server : 
+  port : 8080    
